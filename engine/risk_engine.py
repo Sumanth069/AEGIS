@@ -1,40 +1,34 @@
-from agents.financial_agent import analyze_transactions
-from agents.network_agent import network_risk_score
+from agents.behavior_agent import analyze_behavior
+from agents.network_agent import network_risk
 from models.credit_model import predict_credit_risk
+from models.fraud_model import train_fraud_model, fraud_probability
 from agents.explanation_agent import generate_explanation
 
 
-def generate_report(name, loan_amount, transaction_file):
+def generate_report(df):
 
-    behaviour_risk = analyze_transactions(transaction_file)
+    fraud_model = train_fraud_model(df)
 
-    network_risk = network_risk_score()
+    behavior = analyze_behavior(df)
+    fraud = fraud_probability(fraud_model, df)
+    credit = predict_credit_risk(df)
+    network = network_risk(df)
 
-    credit_risk, default_probability = predict_credit_risk()
+    final_risk = (
+        0.35 * fraud +
+        0.25 * behavior +
+        0.25 * credit +
+        0.15 * network
+    )
 
-    final_risk = behaviour_risk + network_risk + credit_risk
-
-    if final_risk < 40:
-        recommendation = "APPROVE LOAN"
-
-    elif final_risk < 80:
-        recommendation = "MANUAL INVESTIGATION"
-
-    else:
-        recommendation = "REJECT"
-
-    report = {
-        "name": name,
-        "behaviour_risk": behaviour_risk,
-        "credit_risk": credit_risk,
-        "network_risk": network_risk,
-        "default_probability": default_probability,
-        "final_risk": round(final_risk,2),
-        "recommendation": recommendation
-    }
+    report = f"""
+Behaviour Risk: {behavior}
+Fraud Risk: {fraud}
+Credit Risk: {credit}
+Network Risk: {network}
+Final Risk: {final_risk}
+"""
 
     explanation = generate_explanation(report)
 
-    report["explanation"] = explanation
-
-    return report
+    return behavior, fraud, credit, network, final_risk, explanation

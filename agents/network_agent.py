@@ -1,18 +1,12 @@
-import pandas as pd
+import networkx as nx
 
-def network_risk_score():
+def network_risk(df):
 
-    try:
-        flagged = pd.read_csv("data/flagged_accounts.csv")
+    G = nx.Graph()
 
-        flagged_count = len(flagged)
+    for _, row in df.iterrows():
+        G.add_edge(row["customer"], row["merchant"])
 
-        if flagged_count > 50:
-            return 60
-        elif flagged_count > 20:
-            return 40
-        else:
-            return 20
+    density = nx.density(G)
 
-    except:
-        return 10
+    return min(density * 10, 1)

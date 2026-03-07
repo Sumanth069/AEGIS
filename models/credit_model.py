@@ -1,9 +1,9 @@
-import random
+import xgboost as xgb
 
-def predict_credit_risk():
+def predict_credit_risk(df):
 
-    default_probability = random.uniform(0.1,0.7)
+    avg_amount = df["amount"].mean()
 
-    credit_risk = default_probability * 100
+    risk = min(avg_amount / 100, 1)
 
-    return round(credit_risk,2), round(default_probability,2)
+    return risk

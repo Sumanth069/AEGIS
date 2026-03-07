@@ -1,14 +1,21 @@
 import pandas as pd
+from sklearn.ensemble import IsolationForest
 
-def analyze_transactions(file):
 
-    df = pd.read_csv(file)
+def analyze_financial_behavior(df):
 
-    # Fraud ratio in dataset
-    fraud_transactions = df[df["Class"] == 1]
+    # Use transaction amount for anomaly detection
+    amounts = df[["Amount"]]
 
-    fraud_ratio = len(fraud_transactions) / len(df)
+    model = IsolationForest(contamination=0.02, random_state=42)
+    preds = model.fit_predict(amounts)
 
-    behaviour_risk = fraud_ratio * 100
+    df["anomaly"] = preds
+
+    anomalies = df[df["anomaly"] == -1]
+
+    anomaly_ratio = len(anomalies) / len(df)
+
+    behaviour_risk = anomaly_ratio * 100
 
     return round(behaviour_risk, 2)

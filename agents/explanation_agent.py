@@ -1,36 +1,24 @@
+import subprocess
+
 def generate_explanation(report):
 
-    behaviour = report["behaviour_risk"]
-    credit = report["credit_risk"]
-    network = report["network_risk"]
-    final = report["final_risk"]
+    prompt = f"""
+You are a financial fraud investigator.
 
-    explanation = "AI Investigation Summary:\n\n"
+Analyze this risk report and explain the threats:
 
-    if behaviour > 40:
-        explanation += "- The transaction history shows unusual behavioural patterns.\n"
-    else:
-        explanation += "- The transaction behaviour appears mostly stable.\n"
+{report}
 
-    if credit > 50:
-        explanation += "- The credit model predicts a higher probability of default.\n"
-    else:
-        explanation += "- The applicant shows moderate credit risk.\n"
+Give:
+1. Risk explanation
+2. Suspicious behavior
+3. Recommendation
+"""
 
-    if network > 40:
-        explanation += "- The account shows connections with flagged or suspicious entities.\n"
-    else:
-        explanation += "- No strong suspicious network connections were detected.\n"
+    result = subprocess.run(
+        ["ollama", "run", "llama3", prompt],
+        capture_output=True,
+        text=True
+    )
 
-    explanation += "\nOverall Risk Score: " + str(final)
-
-    if final < 40:
-        explanation += "\nAI Recommendation: The loan application appears safe to approve."
-
-    elif final < 80:
-        explanation += "\nAI Recommendation: Further manual investigation is advised before approval."
-
-    else:
-        explanation += "\nAI Recommendation: High financial risk detected. Loan rejection is recommended."
-
-    return explanation
+    return result.stdout
