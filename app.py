@@ -19,7 +19,6 @@ st.set_page_config(page_title="AEGIS Threat Intelligence", layout="wide")
 
 st.markdown("""
 <style>
-
 .stApp{
 background-color:#0B0F19;
 color:#E6EDF3;
@@ -49,11 +48,17 @@ color:white;
 border-radius:8px;
 }
 
+.ai-panel{
+background:#161B22;
+padding:25px;
+border-radius:12px;
+border:1px solid #30363d;
+line-height:1.7;
+}
 </style>
 """, unsafe_allow_html=True)
 
 st.title("AEGIS Financial Threat Intelligence Console")
-
 st.markdown("AI-Driven Fraud Detection | Credit Risk | Behaviour Monitoring")
 
 # -------------------------------
@@ -79,30 +84,16 @@ if uploaded_file:
 
         st.info("Running AI Threat Analysis...")
 
-        # -------------------------------
-        # DATA PREP
-        # -------------------------------
-
         numeric_cols = df.select_dtypes(include=np.number).columns
-
         X = df[numeric_cols]
 
-        # -------------------------------
-        # BEHAVIOUR ANOMALY
-        # -------------------------------
-
+        # Behaviour anomaly detection
         iso = IsolationForest(contamination=0.02)
-
         df["anomaly"] = iso.fit_predict(X)
-
         behaviour_score = abs(df["anomaly"].mean())
 
-        # -------------------------------
-        # FRAUD MODEL
-        # -------------------------------
-
+        # Fraud model
         fraud_prob = 0
-
         if "fraud" in df.columns:
 
             y = df["fraud"]
@@ -115,170 +106,156 @@ if uploaded_file:
 
             fraud_prob = model.predict_proba(X_test)[:,1].mean()
 
-        # -------------------------------
-        # CREDIT RISK (simple heuristic)
-        # -------------------------------
-
+        # Credit risk heuristic
         credit_risk = X.mean().mean() / X.max().max()
 
-        # -------------------------------
-        # NETWORK RISK
-        # -------------------------------
-
+        # Network risk
         network_risk = 0
-
         G = nx.Graph()
 
-        if "customer" in df.columns and "merchant" in df.columns:
+        if "customer" in df.columns and "merchant" in df.columns and "fraud" in df.columns:
 
-            fraud_df = df[df["fraud"]==1].head(100)
+            fraud_df = df[df["fraud"] == 1].head(200)
 
-            for _,row in fraud_df.iterrows():
+            for _, row in fraud_df.iterrows():
+                G.add_edge(row["customer"], row["merchant"])
 
-                G.add_edge(row["customer"],row["merchant"])
+            network_risk = len(G.nodes) / 100
 
-            network_risk = len(G.nodes)/100
-
-        # -------------------------------
-        # FINAL SCORE
-        # -------------------------------
-
+        # Final risk score
         final_score = np.mean([
-        behaviour_score,
-        fraud_prob,
-        credit_risk,
-        network_risk
+            behaviour_score,
+            fraud_prob,
+            credit_risk,
+            network_risk
         ])
 
         st.success("Analysis Complete")
 
-        # -------------------------------
-        # METRICS
-        # -------------------------------
-
-        col1,col2,col3,col4 = st.columns(4)
+        # Metrics
+        col1, col2, col3, col4 = st.columns(4)
 
         col1.metric("Behaviour Risk", round(behaviour_score,3))
         col2.metric("Fraud Probability", round(fraud_prob,3))
         col3.metric("Credit Risk", round(credit_risk,3))
         col4.metric("Network Risk", round(network_risk,3))
 
-        # -------------------------------
-        # FINAL SCORE
-        # -------------------------------
+        # Risk Score
+        st.subheader("Overall Risk Score")
 
-        st.subheader("Final Risk Score")
+        st.progress(float(final_score))
 
-        st.error(round(final_score,3))
+        if final_score > 0.6:
+            st.error(round(final_score,3))
+        elif final_score > 0.3:
+            st.warning(round(final_score,3))
+        else:
+            st.success(round(final_score,3))
 
-        # -------------------------------
-        # TRANSACTION DISTRIBUTION
-        # -------------------------------
-
-        st.subheader("Transaction Distribution")
-
+        # Transaction Distribution
         if "amount" in df.columns:
 
-            fig = px.histogram(df,x="amount")
+            st.subheader("Transaction Distribution")
 
-            st.plotly_chart(fig,use_container_width=True)
+            fig = px.histogram(df, x="amount")
 
-        # -------------------------------
-        # FRAUD NETWORK GRAPH
-        # -------------------------------
+            st.plotly_chart(fig, use_container_width=True)
 
+        # Fraud Network Graph
         st.subheader("Fraud Network Graph")
 
-        if len(G.nodes)>0:
+        if len(G.nodes) > 0:
 
             pos = nx.spring_layout(G)
 
-            edge_x=[]
-            edge_y=[]
+            edge_x = []
+            edge_y = []
 
             for edge in G.edges():
-                x0,y0=pos[edge[0]]
-                x1,y1=pos[edge[1]]
-                edge_x.extend([x0,x1,None])
-                edge_y.extend([y0,y1,None])
 
-            edge_trace=go.Scatter(
-            x=edge_x,
-            y=edge_y,
-            line=dict(width=1),
-            hoverinfo='none',
-            mode='lines')
+                x0, y0 = pos[edge[0]]
+                x1, y1 = pos[edge[1]]
 
-            node_x=[]
-            node_y=[]
+                edge_x.extend([x0, x1, None])
+                edge_y.extend([y0, y1, None])
+
+            edge_trace = go.Scatter(
+                x=edge_x,
+                y=edge_y,
+                line=dict(width=1,color="#888"),
+                hoverinfo='none',
+                mode='lines'
+            )
+
+            node_x = []
+            node_y = []
 
             for node in G.nodes():
-                x,y=pos[node]
+
+                x, y = pos[node]
+
                 node_x.append(x)
                 node_y.append(y)
 
-            node_trace=go.Scatter(
-            x=node_x,
-            y=node_y,
-            mode='markers',
-            marker=dict(size=10)
+            node_trace = go.Scatter(
+                x=node_x,
+                y=node_y,
+                mode='markers',
+                marker=dict(size=10,color="#00FFC6")
             )
 
-            fig=go.Figure(data=[edge_trace,node_trace])
+            fig = go.Figure(data=[edge_trace,node_trace])
 
             st.plotly_chart(fig,use_container_width=True)
 
         else:
             st.warning("No fraud network connections detected")
 
-        # -------------------------------
-        # SUSPICIOUS TRANSACTIONS
-        # -------------------------------
-
+        # Suspicious transactions
         st.subheader("Suspicious Transactions")
 
-        suspicious = df[df["anomaly"]==-1]
+        suspicious = df[df["anomaly"] == -1]
 
         st.dataframe(suspicious.head(20))
 
-        # -------------------------------
-        # AI FRAUD INVESTIGATION
-        # -------------------------------
+        # Merchant risk clusters
+        if "merchant" in df.columns:
 
+            st.subheader("High Risk Merchant Clusters")
+
+            merchant_counts = df["merchant"].value_counts().head(10)
+
+            merchant_df = pd.DataFrame({
+                "Merchant":merchant_counts.index,
+                "Transactions":merchant_counts.values
+            })
+
+            st.table(merchant_df)
+
+        # AI investigation report
         st.subheader("AI Fraud Investigation")
 
-        if final_score > 0.6:
+        st.markdown(f"""
+<div class="ai-panel">
 
-            st.error("""
-High systemic financial risk detected.
+<h3>AI Risk Investigation Report</h3>
 
-Recommended actions:
-• Freeze suspicious accounts
-• Initiate enhanced KYC review
-• Monitor merchant clusters
-""")
+Behaviour Risk Score: {behaviour_score}  
+Fraud Probability: {fraud_prob}  
+Credit Risk: {credit_risk}  
+Network Risk: {network_risk}
 
-        elif final_score > 0.3:
+The AEGIS system detected behavioural anomalies and transaction clusters that may indicate coordinated financial activity.
 
-            st.warning("""
-Moderate risk environment.
+Recommended Actions:
+• Monitor flagged accounts  
+• Investigate high-frequency merchants  
+• Perform AML compliance checks  
 
-Recommended actions:
-• Increase transaction monitoring
-• Flag abnormal customers
-""")
+</div>
+""", unsafe_allow_html=True)
 
-        else:
-
-            st.success("""
-Low systemic fraud risk detected.
-Continue normal monitoring.
-""")
-
-        # -------------------------------
-        # CAM REPORT GENERATOR
-        # -------------------------------
-
+        # CAM report
         def generate_cam():
 
             buffer = BytesIO()
@@ -289,26 +266,23 @@ Continue normal monitoring.
 
             story = []
 
-            story.append(Paragraph("Credit Assessment Memorandum",styles['Title']))
+            story.append(Paragraph("AEGIS Credit Assessment Memorandum", styles['Title']))
+            story.append(Spacer(1,20))
+
+            story.append(Paragraph(f"Behaviour Risk: {behaviour_score}", styles['Normal']))
+            story.append(Paragraph(f"Fraud Probability: {fraud_prob}", styles['Normal']))
+            story.append(Paragraph(f"Credit Risk: {credit_risk}", styles['Normal']))
+            story.append(Paragraph(f"Network Risk: {network_risk}", styles['Normal']))
+            story.append(Paragraph(f"Final Risk Score: {final_score}", styles['Normal']))
 
             story.append(Spacer(1,20))
 
-            story.append(Paragraph(f"Behaviour Risk: {behaviour_score}",styles['Normal']))
-            story.append(Paragraph(f"Fraud Probability: {fraud_prob}",styles['Normal']))
-            story.append(Paragraph(f"Credit Risk: {credit_risk}",styles['Normal']))
-            story.append(Paragraph(f"Network Risk: {network_risk}",styles['Normal']))
-            story.append(Paragraph(f"Final Risk Score: {final_score}",styles['Normal']))
+            table_data = [list(suspicious.columns)]
 
-            story.append(Spacer(1,20))
-
-            story.append(Paragraph("Top Suspicious Transactions",styles['Heading2']))
-
-            table_data=[list(suspicious.columns)]
-
-            for i,row in suspicious.head(10).iterrows():
+            for _, row in suspicious.head(10).iterrows():
                 table_data.append(list(row))
 
-            table=Table(table_data)
+            table = Table(table_data)
 
             story.append(table)
 
@@ -321,8 +295,8 @@ Continue normal monitoring.
         cam_pdf = generate_cam()
 
         st.download_button(
-        label="Download CAM Report",
-        data=cam_pdf,
-        file_name="AEGIS_CAM_Report.pdf",
-        mime="application/pdf"
+            label="Download CAM Report",
+            data=cam_pdf,
+            file_name="AEGIS_CAM_Report.pdf",
+            mime="application/pdf"
         )
