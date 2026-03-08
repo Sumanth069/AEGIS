@@ -117,7 +117,7 @@ This enables **bank analysts to understand risks instantly without manual analys
 ---
 
 # 🏗️ System Architecture
-<img width="1953" height="1739" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/375ba5fe-3b33-4f31-9aed-f6e9d3fc5ef2" />
+<img width="1100" height="980" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/375ba5fe-3b33-4f31-9aed-f6e9d3fc5ef2" />
 
 # 🔄 Workflow
 
@@ -165,26 +165,6 @@ This enables **bank analysts to understand risks instantly without manual analys
 ### AI Intelligence
 - LLM Integration
 
----
-
-# 📂 Project Structure
-
-
-AEGIS
-│
-├── app.py
-├── risk_models.py
-├── llm_engine.py
-├── synthetic_data.py
-│
-├── datasets
-│ └── company_transactions.csv
-│
-├── requirements.txt
-└── README.md
-
-
----
 
 # ⚡ Installation
 
