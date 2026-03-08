@@ -1,180 +1,238 @@
-.
+<h1 align="center">🛡️ AEGIS</h1>
 
-# 🛡️ AEGIS
-AI Financial Threat Intelligence Engine
-<p align="center"> AI-powered credit risk, fraud detection, and financial intelligence platform for modern banking. </p> <p align="center">
+<h3 align="center">
+AI-Powered Financial Threat Intelligence Engine
+</h3>
 
+<p align="center">
+Automated credit appraisal, fraud detection, and risk intelligence for modern financial institutions.
+</p>
 
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red?style=for-the-badge)
+![Machine Learning](https://img.shields.io/badge/AI-MachineLearning-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-HackathonPrototype-orange?style=for-the-badge)
 
 </p>
-🚀 What is AEGIS?
 
-AEGIS is an AI-driven credit intelligence platform that helps banks evaluate company creditworthiness by analyzing:
+---
 
-financial indicators
+# 🚀 Overview
 
-transaction behavior
+**AEGIS** is an AI-driven financial risk intelligence system designed to help banks and financial institutions automate **credit appraisal and fraud detection for companies**.
 
-fraud probability
+Traditional credit approval processes rely heavily on manual financial analysis and static ratios. These methods are slow and often fail to detect hidden financial threats.
 
-network relationships
+AEGIS solves this by combining:
 
-The system generates real-time risk scores and AI explanations to support better lending decisions.
+- Machine learning risk models  
+- Transaction behavior analytics  
+- Fraud probability estimation  
+- Network risk intelligence  
+- AI-powered financial recommendations  
 
-Instead of manual credit appraisal, AEGIS provides automated financial threat intelligence.
+The system produces a **comprehensive risk score that helps lenders make faster and safer credit decisions.**
 
-🧠 Why the Name AEGIS?
+---
 
-In Greek mythology, Aegis was the protective shield of Zeus and Athena.
+# 🧠 Why the Name *AEGIS*?
 
-Similarly, this system acts as a financial protection shield for banks by detecting hidden financial risks.
+In Greek mythology, the **Aegis** was a protective shield used by **Zeus and Athena**.
 
-🛡️ AEGIS = AI Shield for Financial Systems
+Similarly, this system acts as a **protective shield for financial institutions**, identifying risks before loans are approved.
 
-📊 Dashboard Preview
-Risk Intelligence Dashboard
-4
+🛡️ **AEGIS = AI Shield for Financial Systems**
 
-The dashboard provides:
+---
 
-Company financial inputs
+# ✨ Key Features
 
-Risk score visualization
+| Feature | Description |
+|------|------|
+| 📊 Credit Risk Prediction | Predicts probability of loan default |
+| 🔍 Fraud Detection | Detects suspicious transaction patterns |
+| 📈 Behavioral Risk Analysis | Identifies abnormal financial behavior |
+| 🌐 Network Risk Detection | Detects risky financial connections |
+| 🤖 AI Financial Advisor | Generates human-readable credit recommendations |
+| 📉 Interactive Dashboard | Real-time visual analytics for financial decisions |
 
-Transaction analytics
+---
 
-AI recommendations
+# 🧠 AI Models Used
 
-🧠 Core AI Models
+AEGIS evaluates company risk using **four machine learning models**.
 
-AEGIS evaluates companies using four independent AI models.
+| Model | Purpose | Algorithm |
+|------|------|------|
+| Behavioral Risk Model | Detect abnormal transaction patterns | Isolation Forest |
+| Fraud Detection Model | Predict fraud probability | Random Forest |
+| Credit Risk Model | Estimate loan default probability | Logistic Regression |
+| Network Risk Model | Analyze company financial relationships | Graph Analysis |
 
-Model	Purpose	Algorithm
-Behavioral Risk	Detect abnormal transaction patterns	Isolation Forest
-Fraud Detection	Identify suspicious financial activity	Random Forest
-Credit Risk	Estimate probability of loan default	Logistic Regression
-Network Risk	Analyze risky company connections	Graph Analysis
+Each model produces a **risk score between 0 and 1**.
 
-Each model produces a risk score between 0 and 1.
+---
 
-⚙️ Risk Scoring System
+# ⚙️ Risk Score Calculation
 
-The final score combines all models:
+The final **Overall Risk Score** is calculated using weighted aggregation.
 
 Overall Risk Score =
 0.30 × Behavioral Risk +
 0.30 × Credit Risk +
-0.25 × Fraud Probability +
+0.25 × Fraud Risk +
 0.15 × Network Risk
-Example Output
-Metric	Score
-Behavior Risk	0.667
-Fraud Probability	0.000
-Credit Risk	0.177
-Network Risk	0.000
 
-Overall Risk Score → 0.211
 
-Risk Level → Low Risk
+### Example Output
 
-🤖 AI Financial Advisor
+| Metric | Score |
+|------|------|
+Behavior Risk | 0.667 |
+Fraud Probability | 0.000 |
+Credit Risk | 0.177 |
+Network Risk | 0.000 |
 
-AEGIS integrates an LLM-powered intelligence layer.
+**Overall Risk Score → 0.211**
 
-The AI analyzes:
+Risk Level → **LOW RISK**
 
-financial inputs
+---
 
-risk model outputs
+# 🤖 AI Financial Recommendation Engine
 
-transaction patterns
+AEGIS integrates an **LLM-based intelligence layer** that converts risk scores into **human-readable financial insights**.
 
-and generates human-readable credit recommendations.
+Example AI recommendation:
 
-Example:
+> The company demonstrates stable financial health with low credit risk and minimal fraud probability. Transaction behavior shows moderate anomalies but does not indicate systemic instability. Loan approval may be considered with standard monitoring.
 
-The company demonstrates stable financial health with low credit risk and minimal fraud probability. Loan approval can be considered with standard monitoring.
+This enables **bank analysts to understand risks instantly without manual analysis.**
 
-This allows bank analysts to understand risks instantly.
+---
 
-🏗️ System Architecture
+# 🏗️ System Architecture
+
 Company Financial Data
-        │
-        ▼
+
+│
+
+▼
+
 Transaction Processing
-        │
-        ▼
-Risk Analysis Layer
-│        │        │        │
-▼        ▼        ▼        ▼
-Behavior  Fraud   Credit   Network
-Model     Model   Model    Model
-        │
-        ▼
+
+│
+
+▼
+
+AI Risk Engine
+
+│ │ │ │
+▼ ▼ ▼ ▼
+Behavior Fraud Credit Network
+
+Model Model Model Model
+
+│
+
+▼
+
 Risk Aggregation Engine
-        │
-        ▼
+
+│
+
+▼
+
 LLM Financial Intelligence
-        │
-        ▼
-Interactive Dashboard
-🔄 Workflow
+│
 
-1️⃣ Company uploads financial transactions
-2️⃣ AEGIS processes financial indicators
+▼
 
-3️⃣ ML models calculate:
+Interactive Risk Dashboard
 
-behavior risk
 
-fraud probability
+---
 
-credit risk
+# 🔄 Workflow
 
-network risk
+1️⃣ Company financial data is uploaded  
 
-4️⃣ Risk aggregation engine computes overall risk score
+2️⃣ Transaction patterns are analyzed  
 
-5️⃣ AI generates financial recommendation
+3️⃣ Machine learning models compute:
 
-6️⃣ Results displayed on interactive dashboard
+- Behavioral Risk  
+- Fraud Probability  
+- Credit Risk  
+- Network Risk  
 
-🖥️ Tech Stack
-Frontend
+4️⃣ Risk aggregation engine calculates **overall risk score**
 
-Streamlit
+5️⃣ AI generates **financial recommendation**
 
-Plotly
+6️⃣ Results are displayed on the **interactive dashboard**
 
-Backend
+---
 
-Python
+# 🖥️ Tech Stack
 
-Machine Learning
+### Frontend
+- Streamlit
+- Plotly
 
-Scikit-learn
+### Backend
+- Python
 
-Isolation Forest
+### Machine Learning
+- Scikit-learn
+- Isolation Forest
+- Random Forest
+- Logistic Regression
 
-Random Forest
+### Data Processing
+- Pandas
+- NumPy
 
-Logistic Regression
+### Graph Analysis
+- NetworkX
 
-Data Processing
+### AI Intelligence
+- LLM Integration
 
-Pandas
+---
 
-NumPy
+# 📂 Project Structure
 
-Graph Analytics
+AEGIS
+│
 
-NetworkX
+├── app.py
 
-AI Layer
+├── risk_models.py
 
-LLM Integration
+├── llm_engine.py
 
-📂 Project Structure
+├── synthetic_data.py
+
+│
+
+├── datasets
+
+│ └── company_transactions.csv
+
+│
+
+├── requirements.txt
+
+└── README.md
+
+
+
+# 📂 Project Structure
+
+
 AEGIS
 │
 ├── app.py
@@ -183,55 +241,73 @@ AEGIS
 ├── synthetic_data.py
 │
 ├── datasets
-│   └── company_transactions.csv
+│ └── company_transactions.csv
 │
 ├── requirements.txt
 └── README.md
-⚡ Installation
-Clone Repository
-git clone https://github.com/yourusername/aegis-ai
-cd aegis-ai
-Install Dependencies
+
+
+---
+
+# ⚡ Installation
+
+### Clone the repository
+
+
+git clone https://github.com/yourusername/aegis
+
+cd aegis
+
+
+### Install dependencies
+
+
 pip install -r requirements.txt
-Run Dashboard
+
+
+### Run the dashboard
+
+
 streamlit run app.py
 
-Open browser
+
+Open in browser
+
 
 http://localhost:8501
-🎯 Use Cases
+
+
+---
+
+# 🎯 Use Cases
 
 AEGIS can be used for:
 
-🏦 Bank loan approval systems
-💳 SME credit risk analysis
-🔎 Financial fraud monitoring
-📊 Corporate due diligence
-🤖 AI-powered credit engines
+- Bank loan approval systems  
+- SME credit risk analysis  
+- Financial fraud monitoring  
+- Corporate due diligence  
+- Fintech credit engines  
 
-🔮 Future Improvements
+---
 
-Real banking API integration
+# 🔮 Future Improvements
 
-Graph Neural Network fraud detection
+- Real-time banking API integration  
+- Graph Neural Network fraud detection  
+- Automated financial statement analysis  
+- Industry-specific risk models  
 
-Automated financial statement parsing
+---
 
-Real-time fraud alerts
+# 🏆 Hackathon Project
 
-Industry-specific risk models
+Built for **Fintech Hackathon 2026**.
 
-🏆 Hackathon Vision
+AEGIS demonstrates how **AI can transform traditional credit appraisal into intelligent financial threat detection.**
 
-AEGIS demonstrates how AI can transform credit appraisal into an intelligent financial threat detection platform.
+---
 
-Instead of manual credit checks, banks can use AI-driven risk intelligence.
+# ⭐ Support
 
-👨‍💻 Contributors
-Name	Role
-Project Developer	AI/ML Engineer
-⭐ Support
-
-If you found this project useful, consider starring the repository.
-
-⭐ Built for Fintech Hackathon 2026
+If you found this project useful, consider **starring the repository**.
