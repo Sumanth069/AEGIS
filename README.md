@@ -5,18 +5,22 @@ AI-Powered Financial Threat Intelligence Engine
 </h3>
 
 <p align="center">
-Automated credit appraisal, fraud detection, and risk intelligence for modern financial institutions.
+
+![Python](https://img.shields.io/badge/Language-Python-blue?style=for-the-badge)
+![Dashboard](https://img.shields.io/badge/UI-Streamlit-red?style=for-the-badge)
+![ML Library](https://img.shields.io/badge/ML-ScikitLearn-orange?style=for-the-badge)
+![LLM](https://img.shields.io/badge/AI-Llama3-black?style=for-the-badge)
+
 </p>
 
 <p align="center">
 
-![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge)
-![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red?style=for-the-badge)
-![Machine Learning](https://img.shields.io/badge/AI-MachineLearning-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-HackathonPrototype-orange?style=for-the-badge)
+![Isolation Forest](https://img.shields.io/badge/BehaviorModel-IsolationForest-green?style=flat-square)
+![Random Forest](https://img.shields.io/badge/FraudModel-RandomForest-green?style=flat-square)
+![Logistic Regression](https://img.shields.io/badge/CreditModel-LogisticRegression-blueviolet?style=flat-square)
+![NetworkX](https://img.shields.io/badge/GraphRisk-NetworkX-lightgrey?style=flat-square)
 
 </p>
-
 ---
 
 # 🚀 Overview
