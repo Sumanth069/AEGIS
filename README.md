@@ -114,29 +114,7 @@ This enables **bank analysts to understand risks instantly without manual analys
 ---
 
 # 🏗️ System Architecture
-
-Company Financial Data
-│
-▼
-Transaction Processing
-│
-▼
-AI Risk Engine
-│ │ │ │
-▼ ▼ ▼ ▼
-Behavior Fraud Credit Network
-Model Model Model Model
-│
-▼
-Risk Aggregation Engine
-│
-▼
-LLM Financial Intelligence
-│
-▼
-Interactive Risk Dashboard
-
----
+<img width="1953" height="1739" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/375ba5fe-3b33-4f31-9aed-f6e9d3fc5ef2" />
 
 # 🔄 Workflow
 
