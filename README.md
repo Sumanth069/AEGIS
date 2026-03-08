@@ -171,9 +171,8 @@ This enables **bank analysts to understand risks instantly without manual analys
 ### Clone the repository
 
 
-git clone https://github.com/yourusername/aegis
-
-cd aegis
+git clone https://github.com/Sumanth069/AEGIS
+cd AEGIS
 
 
 ### Install dependencies
