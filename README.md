@@ -116,42 +116,25 @@ This enables **bank analysts to understand risks instantly without manual analys
 # 🏗️ System Architecture
 
 Company Financial Data
-
 │
-
 ▼
-
 Transaction Processing
-
 │
-
 ▼
-
 AI Risk Engine
-
 │ │ │ │
 ▼ ▼ ▼ ▼
 Behavior Fraud Credit Network
-
 Model Model Model Model
-
 │
-
 ▼
-
 Risk Aggregation Engine
-
 │
-
 ▼
-
 LLM Financial Intelligence
 │
-
 ▼
-
 Interactive Risk Dashboard
-
 
 ---
 
@@ -202,33 +185,6 @@ Interactive Risk Dashboard
 - LLM Integration
 
 ---
-
-# 📂 Project Structure
-
-AEGIS
-│
-
-├── app.py
-
-├── risk_models.py
-
-├── llm_engine.py
-
-├── synthetic_data.py
-
-│
-
-├── datasets
-
-│ └── company_transactions.csv
-
-│
-
-├── requirements.txt
-
-└── README.md
-
-
 
 # 📂 Project Structure
 
