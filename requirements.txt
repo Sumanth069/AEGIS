@@ -1,6 +1,10 @@
+streamlit
 pandas
 numpy
 scikit-learn
-xgboost
-streamlit
-ollama
+plotly
+matplotlib
+networkx
+seaborn
+openai
+python-dotenv
