@@ -21,7 +21,6 @@ AI-Powered Financial Threat Intelligence Engine
 ![NetworkX](https://img.shields.io/badge/GraphRisk-NetworkX-lightgrey?style=flat-square)
 
 </p>
----
 
 # 🚀 Overview
 
